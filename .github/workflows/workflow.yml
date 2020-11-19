@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
 
-  codecov-checkstyle-maven-linux-single-pom:
+  build-airflow-celery-example:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -14,12 +14,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    # - name: "deploy codecov checkstyle maven(single pom) on bionic arm64"        
-    #   run: |
-    #         cd maven-checkstyle && mvn checkstyle:checkstyle
-    #         bash <(curl -s https://codecov.io/bash)        
+    - name: "build airflow celery example on bionic amd64"        
+      run: |
+            cd airflow/example1
+            docker-compose -f docker-compose-celery.yaml up -d        
 
-  codecov-cobertura-junit4-maven-linux-single-pom:
+  build-airflow-example:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1

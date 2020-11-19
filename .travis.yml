@@ -10,7 +10,7 @@ matrix:
   fast_finish: true
   include:
 
-    - name: "build airflow celery example1 on bionic amd64"
+    - name: "build airflow celery example on bionic amd64"
       os: linux
       dist: bionic
       arch: amd64
@@ -32,7 +32,7 @@ matrix:
       after_success:
         - deactivate
 
-    - name: "build airflow example1 on bionic amd64"
+    - name: "build airflow example on bionic amd64"
       os: linux
       dist: bionic
       arch: amd64
@@ -68,6 +68,7 @@ matrix:
         - source ~venvpy3/bin/activate
         - pip install -r requirements.txt
       script:
+        - git clone https://github.com/puckel/docker-airflow.git && cd docker-airflow      
         - docker build --rm --build-arg AIRFLOW_DEPS="datadog,dask" --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t puckel/docker-airflow .
         - docker image ls
         # By default, docker-airflow runs Airflow with SequentialExecutor
@@ -89,6 +90,7 @@ matrix:
         - source ~venvpy3/bin/activate
         - pip install -r requirements.txt
       script:
+        - git clone https://github.com/puckel/docker-airflow.git && cd docker-airflow
         - docker build --rm --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t puckel/docker-airflow .
         - docker image ls
         # By default, docker-airflow runs Airflow with SequentialExecutor
